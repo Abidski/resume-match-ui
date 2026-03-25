@@ -1,5 +1,9 @@
 import { FileUp, FileText } from "lucide-react";
+import { useState } from "react";
+
 function ResumeDropzone() {
+  const [file, setFile] = useState<File | null>(null);
+
   return (
     <>
       <div className="mt-8 h-auto w-1/2">

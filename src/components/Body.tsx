@@ -1,5 +1,5 @@
 import { FileUp, FileText, BriefcaseBusiness } from "lucide-react";
-import ResumeDropzone from "./ResumeDropzone";
+import ResumeDropzone from "./DropZone";
 import JobDescriptionzone from "./JobDescriptionzone";
 function Body() {
   return (
