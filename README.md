@@ -5,7 +5,7 @@ Goal: Create a Web App allowing you to see if resume fits job decscription.
 Currently:
 
 - Designed dashboard UI with React/TypeScript
-- Styled UI with TailWindCSS
+- Styled UI with TailwindCSS
 
 ## Demo
 <!-- Demo source: https://github.com/nvim-mini/assets/blob/main/demo/demo-files.mp4 -->
