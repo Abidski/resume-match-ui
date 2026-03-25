@@ -1,0 +1,24 @@
+import { BriefcaseBusiness } from "lucide-react";
+function JobDescriptionzone() {
+  return (
+    <>
+      <div className="mt-8 h-auto w-1/2 min-h-150">
+        <div className="flex">
+          <BriefcaseBusiness className="text-indigo-600" />
+          <p className="text-xl mb-4 pl-3 font-bold">Job Description</p>
+        </div>
+        <div className=" bg-white border border-slate-100 shadow-sm w-full h-screen rounded-2xl p-8 flex flex-col ">
+          <textarea
+            placeholder="Paste job description here ..."
+            className="h-110 mb-8 resize-none m-3 font-normal text-s text-slate-400 border border-slate-100 rounded-2xl bg-slate-50 flex-1 p-4 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+          ></textarea>
+          <div className="flex items-center">
+            <div className=" h-px bg-gray-200 w-1/4 flex-1" />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default JobDescriptionzone;
