@@ -1,14 +1,17 @@
 import { FileUp, FileText, BriefcaseBusiness } from "lucide-react";
-import ResumeDropzone from "./DropZone";
+import DropZone from "./DropZone";
 import JobDescriptionzone from "./JobDescriptionzone";
+import { useState } from "react";
+
 function Body() {
+  const [file, setFile] = useState<File | null>(null);
   return (
     <>
-      <main className="p-8 bg-slate-50">
+      <main className="h-screen flex flex-col overflow-hidden p-8 bg-slate-50">
         <Description />
 
-        <div className="flex gap-6 min-h-150 ">
-          <ResumeDropzone />
+        <div className="flex-1 flex gap-6 min-h-0 ">
+          <DropZone setResume={setFile} />
           <JobDescriptionzone />
         </div>
 
