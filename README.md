@@ -25,3 +25,6 @@ Currently:
 * Node.js
 * React
 * TailWindCSS
+
+>[!NOTE]
+>Claude.ai was used in the making of this project.
