@@ -4,9 +4,11 @@ import { type DragEvent } from "react";
 
 interface DropZoneProp {
   setResume: (file: File | null) => void;
+  setResumeText: (text: string) => void;
+  resumeText: string;
 }
 
-function DropZone({ setResume }: DropZoneProp) {
+function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,6 +100,8 @@ function DropZone({ setResume }: DropZoneProp) {
           <textarea
             placeholder="Paste your resume ..."
             className=" resize-none m-3 font-normal text-s text-slate-400 border border-slate-100 rounded-2xl bg-slate-50 flex-1 p-4"
+            value={resumeText}
+            onChange={(e) => setResumeText(e.target.value)}
           ></textarea>
         </div>
       </div>
