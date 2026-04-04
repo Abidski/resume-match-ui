@@ -16,6 +16,9 @@ function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
 
   const FILE_TYPES = ["application/pdf", "text/plain"];
 
+  function handleBrowse() {
+    inputRef.current?.click();
+  }
   function onDragOver(e: DragEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsDragging(true);
@@ -64,7 +67,15 @@ function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
           <p className="text-xl mb-4 pl-3 font-bold">Upload Resume</p>
         </div>
         <div className=" bg-white border border-slate-100 shadow-sm w-full rounded-2xl p-8 flex flex-col flex-1 ">
-          <input className="hidden" ref={inputRef} type="file" />
+          <input
+            className="hidden"
+            ref={inputRef}
+            type="file"
+            onChange={(e) => {
+              const picked = e.target.files?.[0];
+              if (picked) checkFile(picked);
+            }}
+          />
           <div
             className={`flex flex-col items-center justify-center text-center mb-2 border-2 border-dashed  p-12 flex-1 rounded-2xl
             ${
@@ -81,11 +92,11 @@ function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
             onDrop={onDrop}
           >
             {file ? (
-              <DropZoneAccepted file={file} />
+              <DropZoneAccepted file={file} handleBrowse={handleBrowse} />
             ) : error ? (
-              <DropZoneError errorMessage={error} />
+              <DropZoneError errorMessage={error} handleBrowse={handleBrowse} />
             ) : (
-              <DropZoneDefault />
+              <DropZoneDefault handleBrowse={handleBrowse} />
             )}
           </div>
 
@@ -109,7 +120,13 @@ function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
   );
 }
 
-function DropZoneAccepted({ file }: { file: File }) {
+function DropZoneAccepted({
+  file,
+  handleBrowse,
+}: {
+  file: File;
+  handleBrowse: () => void;
+}) {
   return (
     <>
       <div className="flex w-12 h-12 rounded-xl items-center justify-center text-center bg-indigo-100 m-3">
@@ -117,13 +134,22 @@ function DropZoneAccepted({ file }: { file: File }) {
       </div>
       <span className="font-bold text-lg text-green-500">{file.name}</span>
       <span className="text-slate-500 text-sm mt-1">PDF, DOCX up to 10MB</span>
-      <button className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]">
+      <button
+        className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]"
+        onClick={handleBrowse}
+      >
         Browse Files
       </button>
     </>
   );
 }
-function DropZoneError({ errorMessage }: { errorMessage: string }) {
+function DropZoneError({
+  errorMessage,
+  handleBrowse,
+}: {
+  errorMessage: string;
+  handleBrowse: () => void;
+}) {
   return (
     <>
       <div className="flex w-12 h-12 rounded-xl items-center justify-center text-center bg-indigo-100 m-3">
@@ -131,13 +157,16 @@ function DropZoneError({ errorMessage }: { errorMessage: string }) {
       </div>
       <span className="font-bold text-lg text-red-500">{errorMessage}</span>
       <span className="text-slate-500 text-sm mt-1">PDF, DOCX up to 10MB</span>
-      <button className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]">
+      <button
+        className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]"
+        onClick={handleBrowse}
+      >
         Browse Files
       </button>
     </>
   );
 }
-function DropZoneDefault() {
+function DropZoneDefault({ handleBrowse }: { handleBrowse: () => void }) {
   return (
     <>
       <div className="flex w-12 h-12 rounded-xl items-center justify-center text-center bg-indigo-100 m-3">
@@ -147,7 +176,10 @@ function DropZoneDefault() {
         Drag and Drop resume here
       </span>
       <span className="text-slate-500 text-sm mt-1">PDF, DOCX up to 10MB</span>
-      <button className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]">
+      <button
+        className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]"
+        onClick={handleBrowse}
+      >
         Browse Files
       </button>
     </>
