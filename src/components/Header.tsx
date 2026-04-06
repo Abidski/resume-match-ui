@@ -6,7 +6,6 @@ function Header() {
         <div className="mr-10 font-bold size-8 w-auto color text-2xl text-[#4F46E5]">
           Resume Match{" "}
         </div>
-        <Navbar />
       </header>
     </>
   );

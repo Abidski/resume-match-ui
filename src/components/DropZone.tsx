@@ -61,7 +61,7 @@ function DropZone({ setResume, setResumeText, resumeText }: DropZoneProp) {
   }
   return (
     <>
-      <div className="mt-8 h-auto w-1/2 flex flex-col flex-1 min-h-0">
+      <div className="mt-8  w-1/2 flex flex-col flex-1 min-h-0">
         <div className="flex">
           <FileText className="text-indigo-600" />
           <p className="text-xl mb-4 pl-3 font-bold">Upload Resume</p>
@@ -177,7 +177,7 @@ function DropZoneDefault({ handleBrowse }: { handleBrowse: () => void }) {
       </span>
       <span className="text-slate-500 text-sm mt-1">PDF, DOCX up to 10MB</span>
       <button
-        className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98]"
+        className=" mt-3 border border-slate-200 font-semibold py-2 px-4 text-indigo-600 rounded-2xl hover:bg-slate-100 transition-colors shadow-sm  duration-200 active:scale-[0.98] "
         onClick={handleBrowse}
       >
         Browse Files
