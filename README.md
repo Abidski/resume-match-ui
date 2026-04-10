@@ -9,7 +9,7 @@ Currently:
 
 ## Demo
 <!-- Demo source: https://github.com/nvim-mini/assets/blob/main/demo/demo-files.mp4 -->
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/092a9447-eb9c-4200-9a4d-4818e542d500" />
+<img width="1920" height="1080" alt="image" src="https://github.com/Abidski/assets/blob/main/image.png?raw=true" />
 
 
 
