@@ -14,10 +14,10 @@ Currently:
 
 
 ## Todo
-- [ ] Allow user interaction
-- [ ] Use LLM to review resume and job description
+- [x] Allow user interaction
+- [x] Use LLM to review resume and job description
 - [ ] Create different routes
-- [ ] Create results page
+- [x] Create results page
 
 ## Skills/Tools Used
 * TypeScript
