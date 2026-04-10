@@ -9,8 +9,10 @@ import Footer from "./components/Footer.tsx";
 function App() {
   return (
     <>
-      <Header />
-      <Body />
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <Body />
+      </div>
       <Footer />
     </>
   );

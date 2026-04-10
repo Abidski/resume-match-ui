@@ -1,33 +1,13 @@
-import { FileUp, FileText, BriefcaseBusiness } from "lucide-react";
-import { useState } from "react";
-import useAnalyze from "../hooks/useAnalyze";
+import { type UseMutationResult } from "@tanstack/react-query";
+import { type AnalyzeResult } from "../types";
 
 interface AnalyzeButtonProps {
-  jobDescription: string;
-  resumeText: string;
-  file: File | null;
+  mutation: UseMutationResult<AnalyzeResult, Error, FormData, unknown>;
+  canSubmit: boolean;
+  onClick: () => void;
 }
-function AnalyzeButton({
-  jobDescription,
-  resumeText,
-  file,
-}: AnalyzeButtonProps) {
-  const mutation = useAnalyze();
-  const canSubmit = (file || resumeText) && jobDescription;
 
-  function onClick() {
-    if (!canSubmit) {
-      return;
-    }
-    const data = new FormData();
-    if (file) {
-      data.append("resume_file", file);
-    }
-    data.append("resume_text", resumeText);
-    data.append("job_description", jobDescription);
-    mutation.mutate(data);
-  }
-
+function AnalyzeButton({ mutation, canSubmit, onClick }: AnalyzeButtonProps) {
   return (
     <div className="items-center justify-center text-center mt-10 ">
       <button

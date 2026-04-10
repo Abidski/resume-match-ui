@@ -1,11 +1,12 @@
-import { FileUp, FileText, BriefcaseBusiness, TrendingUp } from "lucide-react";
 import DropZone from "./DropZone";
 import JobDescription from "./JobDescription";
+import Todo from "./Todo";
 import AnalyzeButton from "./AnalyzeButton";
 import { useState } from "react";
 import ScoreCircle from "./ScoreCircle";
 import KeywordAnalysis from "./KeywordAnalysis";
 import useAnalyze from "../hooks/useAnalyze";
+import { type AnalyzeResult } from "../types";
 
 type View = "upload" | "result";
 function Body() {
@@ -13,15 +14,31 @@ function Body() {
   const [file, setFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState("");
   const [jobDescription, setJobDescription] = useState("");
-  const canSubmit = (resumeText || file) && jobDescription;
   const mutation = useAnalyze();
+  const canSubmit = Boolean((file || resumeText) && jobDescription);
+
+  function onClick() {
+    if (!canSubmit) {
+      return;
+    }
+    const data = new FormData();
+    if (file) {
+      data.append("resume_file", file);
+    }
+    data.append("resume_text", resumeText);
+    data.append("job_description", jobDescription);
+
+    mutation.mutate(data, {
+      onSuccess: () => setView("result"), // ← switches view when done
+    });
+  }
 
   return (
     <>
-      <main className="h-screen flex flex-col overflow-hidden p-8 bg-slate-50">
+      <main className=" flex flex-col overflow-hidden p-8 pt-6 bg-slate-50">
+        <Tabs view={view} setView={setView} />
         {view == "upload" ? (
           <>
-            <Tabs view={view} setView={setView} />
             <Description />
 
             <div className="flex flex-1 flex-col min-h-0 gap-6 ">
@@ -37,29 +54,19 @@ function Body() {
                 />
               </div>
               <AnalyzeButton
-                jobDescription={jobDescription}
-                resumeText={resumeText}
-                file={file}
+                mutation={mutation}
+                canSubmit={canSubmit}
+                onClick={onClick}
               />
             </div>
           </>
         ) : (
           <>
-            <Tabs view={view} setView={setView} />
-            <div className=" flex items-center justify-center">
-              <span className=" tracking-wide font-manrope flex items-center justify-center  text-xs bg-indigo-100 px-3 py-1 rounded-full m-8 font-bold text-indigo-600 uppercase">
-                analysis complete
-              </span>
-            </div>
-            <div className=" flex items-center justify-center">
-              <span className=" font-manrope flex items-center justify-center  text-4xl font-bold ">
-                Results
-              </span>
-            </div>
-            <ScoreCircle score={50} />
-            <div className="flex flex-col flex-1">
-              <KeywordAnalysis />
-            </div>
+            {mutation.isSuccess ? (
+              <AnalysisComplete data={mutation.data} />
+            ) : (
+              <>Please upload resume and job description</>
+            )}
           </>
         )}
       </main>
@@ -67,12 +74,41 @@ function Body() {
   );
 }
 
+function AnalysisComplete({ data }: any) {
+  console.log(data);
+  return (
+    <>
+      <div className="flex flex-col flex-1">
+        <div className=" flex items-center justify-center">
+          <span className=" tracking-wide font-manrope flex items-center justify-center  text-xs bg-indigo-100 px-3 py-1 rounded-full m-8 font-bold text-indigo-600 uppercase">
+            analysis complete
+          </span>
+        </div>
+        <div className=" flex items-center justify-center">
+          <span className=" font-manrope flex items-center justify-center  text-4xl font-bold ">
+            Results
+          </span>
+        </div>
+        <ScoreCircle score={data.score} />
+        <div className="flex justify-center align-middle items-center">
+          <span className=" font-manrope font-medium leading-relaxed text-slate-600 text-center max-w-xl mx-auto mt-2 mb-12 text-xs">
+            {data.summary}
+          </span>
+        </div>
+        <div className="flex flex-1 gap-4 justify-center align-middle  items-center">
+          <KeywordAnalysis data={data} />
+          <Todo data={data} />
+        </div>
+      </div>
+    </>
+  );
+}
 function Description() {
   return (
     <div className="mt-8">
       <span className="text-4xl font-bold block">New Analysis</span>
       <span className=" block text-lg font-normal text-[#475569] leading-relaxed mt-2">
-        Upload your resume and and job description to see if they match!
+        Upload your resume and job description to see if they match!
       </span>
     </div>
   );
